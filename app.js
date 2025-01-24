@@ -6,6 +6,12 @@ endPoint = document.getElementById("endpoint");
 Pause = document.getElementById("pause");
 bgm = document.getElementById("bgm");
 volumnBtn = document.getElementById("volume");
+skinSelector = document.getElementById("S_change");
+// DefOptSkin= document;
+glassBreak = document.getElementById("glass_break");
+walkOnGlass = document.getElementById("walkOnGlass");
+timeupGlass = document.getElementById("timeup");
+winningSfx= document.getElementById("winning");
 // // bridge bases
 b1=document.getElementById("1");
 b2=document.getElementById("2");
@@ -14,6 +20,10 @@ b4=document.getElementById("4");
 b5=document.getElementById("5");
 b6=document.getElementById("6");
 
+skinSelector.addEventListener("change",(event)=>{
+    const SelectedSkin = event.target.value;
+    Player.style.backgroundImage = "url(skins/"+SelectedSkin+".png)";
+})
 
 volumnBtn.addEventListener('click', () => {
     if (bgm.paused) {
@@ -77,7 +87,17 @@ leftBtn.addEventListener("click",()=>{
     
     Player.style.left="40%";
         console.log("you won!");
+        
+
+        Pause.style.display="flex";
+        Pause.textContent="You Won !";
+        Pause.style.background="rgba(4, 255, 79, 0.295)";
         endPoint.append(Player);
+        bgm.pause();
+        winningSfx.play();
+        setTimeout(()=>{
+            location.reload();
+        },3000);
     }
 
     if(currentPos==0){
@@ -104,12 +124,17 @@ leftBtn.addEventListener("click",()=>{
         if(currentPos==item){
             
             console.log("you broke glass");
+            glassBreak.play();
             // Player.style.transform="scale(0.5)";
             Pause.style.display="flex";
+            Pause.textContent="Game Over!";
             setTimeout(() => {
                console.log("restarting....") 
                location.reload();
             }, 2000);
+        }
+        else{
+            walkOnGlass.play();
         }
     })
     // console.log(currentPos)
@@ -122,11 +147,15 @@ rightBtn.addEventListener("click",()=>{
         Player.style.top="-5%";
         Player.style.left="40%";
         console.log("you won!");
-
+        Pause.style.display="flex";
+        Pause.textContent="You Won !";
+        Pause.style.background=" rgba(4, 255, 79, 0.295)";
+        bgm.pause();
+        winningSfx.play();
         endPoint.append(Player);
         setTimeout(()=>{
             location.reload();
-        },1000);
+        },3000);
         
     }
     
@@ -153,19 +182,54 @@ rightBtn.addEventListener("click",()=>{
     obstacles.forEach(function(item){
         if(currentPos==item){
             console.log("you broke glass");
+            glassBreak.play();
             // Player.style.transform="scale(0.5)";
             Pause.style.display="flex";
+            Pause.textContent="Game Over!";
             setTimeout(() => {
                console.log("restarting....") 
                location.reload();
             }, 2000);
+        }
+        else{
+            walkOnGlass.play();
         }
     })
     
     return currentPos;
 })
 
+//timer code
+let timeLeft = 40; // Time in seconds
+let timerInterval;
 
-// function winCheck(){
+// Function to update the timer display
+function updateTimer() {
     
-// }
+    Timer.textContent = `00:${timeLeft}`;
+
+    if (timeLeft <= 0) {
+
+        clearInterval(timerInterval);
+         // Stop the timer
+        Pause.style.display="flex";
+        Pause.textContent="Time Up";
+        timeupGlass.play();
+        bgm.pause();
+        setTimeout(() => {
+            console.log("restarting....") 
+            location.reload();
+         }, 2000);
+    } else if (timeLeft < 11 && timeLeft>0){
+        Timer.style.color="red";
+        timeLeft--;
+    }
+    else{
+        timeLeft--;
+    }
+}
+timerInterval = setInterval(updateTimer, 1000);
+
+function Ending (parameters) {
+    
+}

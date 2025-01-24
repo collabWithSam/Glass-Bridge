@@ -64,8 +64,8 @@ position: relative;
 
     background-image: url(glass_txt.jpg);
     background-size: cover;
-    background-blend-mode:screen;
-    opacity: 60%;
+    /* background-blend-mode:screen; */
+    /* opacity: 60%; */
     border-radius: 20%;
     position: relative;
     z-index: 2;
@@ -82,10 +82,11 @@ position: relative;
     
 }
 #player{
-    height: 11vh;
-    width: 11vh;
-    background-size: cover;
-    background-image: url(player.png);
+    height: 14vh;
+    width: 14vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(skins/D_skin.png);
     top:-5%;
     left:40%;
     /* top:-114%; */
@@ -113,6 +114,11 @@ position: relative;
     height: 10vh;
     border: 2px solid black;
     margin: 4vh;
+    font-size: 6ch;
+    text-align: center;
+    font-weight:900;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
 }
 .timer_button button{
     height: 10vh;
@@ -126,11 +132,26 @@ position: relative;
             height: 100%;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: 100px;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            background: rgba(252, 4, 4, 0.322);/* Semi-transparent black */
             display: none; /* Hidden by default */
             z-index: 9999; /* Ensure it is on top of everything */
             justify-content: center;
             align-items: center;
             color: white;
             font-size: 2rem;
+}
+.skin_changer{
+    height: 100px;
+    /* background-color: green; */
+    width: 100px;
+    margin: 10vh;
+}
+#S_change{
+ background-color: yellow;
+ height: 8vh;
+ width: 16vw;
+ font-family: Verdana, Geneva, Tahoma, sans-serif;
+ font-size: 4vh;
+ box-shadow: 10px black ;
+
 }
