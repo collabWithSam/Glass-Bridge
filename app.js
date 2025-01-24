@@ -12,6 +12,7 @@ glassBreak = document.getElementById("glass_break");
 walkOnGlass = document.getElementById("walkOnGlass");
 timeupGlass = document.getElementById("timeup");
 winningSfx= document.getElementById("winning");
+restartBtn = document.getElementById("restart_btn");
 // // bridge bases
 b1=document.getElementById("1");
 b2=document.getElementById("2");
@@ -69,11 +70,21 @@ if(currentPos==0 || currentPos>20){
 document.addEventListener('keydown',(eventt)=>{
     switch(eventt.key){
         case'ArrowLeft':
+        if(Pause.style.display=="flex"){
+            eventt.preventDefault();
+        }
+        else{
             leftBtn.click();
             break;
+        }
         case'ArrowRight':
+        if(Pause.style.display=="flex"){
+            eventt.preventDefault();
+        }
+        else{
             rightBtn.click();
             break;
+        }
         default:
             break;
         
@@ -88,16 +99,14 @@ leftBtn.addEventListener("click",()=>{
     Player.style.left="40%";
         console.log("you won!");
         
-
+        Pause.style.color="green";
         Pause.style.display="flex";
         Pause.textContent="You Won !";
         Pause.style.background="rgba(4, 255, 79, 0.295)";
         endPoint.append(Player);
         bgm.pause();
         winningSfx.play();
-        setTimeout(()=>{
-            location.reload();
-        },3000);
+        
     }
 
     if(currentPos==0){
@@ -128,10 +137,7 @@ leftBtn.addEventListener("click",()=>{
             // Player.style.transform="scale(0.5)";
             Pause.style.display="flex";
             Pause.textContent="Game Over!";
-            setTimeout(() => {
-               console.log("restarting....") 
-               location.reload();
-            }, 2000);
+        
         }
         else{
             walkOnGlass.play();
@@ -147,15 +153,14 @@ rightBtn.addEventListener("click",()=>{
         Player.style.top="-5%";
         Player.style.left="40%";
         console.log("you won!");
+        Pause.style.color="green";
         Pause.style.display="flex";
         Pause.textContent="You Won !";
         Pause.style.background=" rgba(4, 255, 79, 0.295)";
         bgm.pause();
         winningSfx.play();
         endPoint.append(Player);
-        setTimeout(()=>{
-            location.reload();
-        },3000);
+        
         
     }
     
@@ -185,11 +190,9 @@ rightBtn.addEventListener("click",()=>{
             glassBreak.play();
             // Player.style.transform="scale(0.5)";
             Pause.style.display="flex";
+            
             Pause.textContent="Game Over!";
-            setTimeout(() => {
-               console.log("restarting....") 
-               location.reload();
-            }, 2000);
+            
         }
         else{
             walkOnGlass.play();
@@ -213,12 +216,12 @@ function updateTimer() {
         clearInterval(timerInterval);
          // Stop the timer
         Pause.style.display="flex";
+        
         Pause.textContent="Time Up";
         timeupGlass.play();
         bgm.pause();
         setTimeout(() => {
             console.log("restarting....") 
-            location.reload();
          }, 2000);
     } else if (timeLeft < 11 && timeLeft>0){
         Timer.style.color="red";
@@ -233,3 +236,8 @@ timerInterval = setInterval(updateTimer, 1000);
 function Ending (parameters) {
     
 }
+
+//restart 
+restartBtn.addEventListener("click",()=>{
+    location.reload();
+})
